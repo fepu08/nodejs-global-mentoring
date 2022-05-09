@@ -19,11 +19,15 @@ function getDate() {
 const csvFilePath = path.join(__dirname, 'nodejs-hw1-ex1.csv');
 const txtFilePath = path.join(__dirname, `${getDate()}.txt`);
 
-const readStream = fs.createReadStream(csvFilePath);
-const writeStream = fs.createWriteStream(txtFilePath);
-
-pipeline(readStream, csv(), writeStream, (error) => {
-  if (error) {
-    console.error(error);
+pipeline(
+  fs.createReadStream(csvFilePath),
+  csv(),
+  fs.createWriteStream(txtFilePath),
+  (err) => {
+    if (err) {
+      console.error('Pipeline failed.', err);
+    } else {
+      console.log('Pipeline succeeded.');
+    }
   }
-});
+);
