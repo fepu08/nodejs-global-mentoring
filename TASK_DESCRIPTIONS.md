@@ -17,7 +17,7 @@ Write a simple REST service withCRUD operations for User entity.
 - Service should have the following CRUD operations for User:
   - get user by id;
   - create and update user;
-  - get auto-suggest list from `limit` users, sorted by login property and filtered by `loginSubstringin` the login property:
+  - get auto-suggest list from `limit` users, sorted by login property and filtered by `loginSubstring` in the login property:
     `getAutoSuggestUsers(loginSubstring, limit)`
   - remove user (soft delete–user gets marked with isDeletedflag, but not removed from the collection).
 - Store user’scollection in the service memory (while the service is running).
