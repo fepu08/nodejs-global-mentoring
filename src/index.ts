@@ -1,6 +1,9 @@
 import express from 'express';
-import userRoutes from './routes/userRoutes';
+import userRoutes from './routes/user-routes';
 import { handleError, handleNotFound } from './middlewares/errorHandler';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
