@@ -1,7 +1,7 @@
 
 FROM node:18 as base
 ENV NODE_ENV=production
-ENV PORT=5000
+ENV PORT=3000
 EXPOSE $PORT
 RUN apt-get update && apt-get install curl -y
 RUN npm i npm@latest -g
@@ -16,7 +16,7 @@ ENV NODE_ENV=development
 ENV PATH=/opt/node_app/node_modules/.bin:$PATH
 RUN npm install --only=development --ignore-scipts 
 WORKDIR /opt/node_app/app
-CMD ["nodemon", "server.js", "--inspect=0.0.0.0:9229"]
+CMD ["nodemon", "--exec", "node_modules/.bin/ts-node", "./src/index.ts"]
 
 FROM base as source
 WORKDIR /opt/node_app/app

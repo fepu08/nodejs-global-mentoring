@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "start:dev": "nodemon -r dotenv/config --exec node_modules/.bin/ts-node ./src/index.ts",
+    "start:dev": "nodemon --exec node_modules/.bin/ts-node ./src/index.ts",
     "style": "eslint src/*",
     "style:ts": "eslint . --ext .ts",
     "style:fix": "npm run style --fix",
@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "@types/hapi__joi": "^17.1.8",
-    "dotenv": "^16.0.1",
     "express-joi-validation": "^5.0.1",
     "joi": "^17.6.0",
     "pg": "^8.7.3",
