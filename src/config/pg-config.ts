@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 
 export const client = new Client({
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT),
   database: process.env.DATABASE,
   user: process.env.DB_USER,

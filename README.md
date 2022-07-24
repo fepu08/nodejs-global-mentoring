@@ -78,3 +78,9 @@ Read more on:
 
 1. [Stack Overflow](https://stackoverflow.com/questions/41495110/dao-vs-orm-concept-explained-in-the-context-of-sequelize-js)
 2. [Stack Overflow - DAO vs ORM](https://stackoverflow.com/questions/4037251/dao-vs-ormhibernate-pattern)
+
+# Docker
+
+- Bind-mount package.json. This allows adding packages in realtime without rebuilding images. e.g.
+  - `docker-compose exec backend npm install --save <package name>` (dosn't work on all systems)
+  - `docker-compose exec backend bash` & `npm install --save <package name>`

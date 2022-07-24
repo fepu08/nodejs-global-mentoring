@@ -3,12 +3,18 @@ import { IUser, UserModel } from '../models/user-model';
 
 export class UserDAO {
   public static async getAllUsers(loginSubstring: string, limit?: number) {
-    const users = await UserModel.findAll({
-      where: {
-        login: { [Op.iLike]: `%${loginSubstring}%` },
-      },
-      limit,
-    });
+    let query;
+    if (loginSubstring) {
+      query = {
+        where: {
+          login: { [Op.iLike]: `%${loginSubstring}%` },
+        },
+      };
+    }
+    if (limit) {
+      query.limit = limit;
+    }
+    const users = await UserModel.findAll(query);
     return users;
   }
 
@@ -44,13 +50,13 @@ export class UserDAO {
     const { login, password, age } = updatedUser;
     const [, data] = await UserModel.update(
       {
+        login,
         password,
         age,
       },
       {
         where: {
           id,
-          login,
         },
         returning: true,
       }

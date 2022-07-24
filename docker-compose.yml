@@ -24,7 +24,7 @@ services:
       - notused:/opt/node_app/app/node_modules
     environment:
       NODE_ENV: development
-      DB_HOST: localhost
+      DB_HOST: db
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: secret
@@ -49,6 +49,7 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
     networks:
       - application_network
 
