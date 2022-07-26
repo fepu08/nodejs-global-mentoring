@@ -262,6 +262,6 @@ Read more on:
   - `docker-compose exec backend npm install --save <package name>` (doesn't work on all systems)
   - `docker-compose exec backend bash` & `npm install --save <package name>`
 
-After installing the package, you may change some files to invoke a nodemon restart.
+After installing the package, if your nodemon has not refreshed, try to change some source code to invoke nodemon to restart.
 
-Moreover after `docker-compose down` you should use `npm i` or start with `docker-compose up --build` next time.
+Moreover after `docker-compose down` you should use `npm i` and rebuild the image with `docker-compose up --build` next time.
