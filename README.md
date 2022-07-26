@@ -261,3 +261,7 @@ Read more on:
 - Bind-mount package.json. This allows adding packages in realtime without rebuilding images. e.g.
   - `docker-compose exec backend npm install --save <package name>` (doesn't work on all systems)
   - `docker-compose exec backend bash` & `npm install --save <package name>`
+
+After installing the package, you may change some files to invoke a nodemon restart.
+
+Moreover after `docker-compose down` you should use `npm i` or start with `docker-compose up --build` next time.
