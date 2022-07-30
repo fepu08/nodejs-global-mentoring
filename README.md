@@ -2,19 +2,11 @@
 
 ## [3 Layer Architecture](#3-layer-architecture)
 
-### [Controller Layer](##controller-layer)
-
-### [Service Layer](<##service-(domain)-layer>)
-
-#### [Dependency Injection](###dependency-injection)
-
-## [File Structure](#file-structure-example)
-
 ## [Backend Patterns](#backend-patterns)
 
-### [Data Mapper Pattern](##data-mapper-pattern)
+## [Architecture Approaches with file structure examples](#architecture-approaches)
 
-### [Repository Pattern](##repository-pattern)
+## [Relational Databases](#relational-databases)
 
 ## [Docker](#docker)
 
@@ -80,20 +72,6 @@ const userServiceInstance = new UserService(
   companyModel,
   salaryModel
 );
-```
-
-# File Structure Example
-
-```
-.
-├── index.js    # App entry point
-├── api         # Express route controllers for all the endpoints of the map
-├── config      # Environment variables and configuration related stuff
-├── loaders     # Split the startup process into modules
-├── modules     # Database models
-├── services    # All the business logic is here
-├── subscribers # Event handlers for async task
-└── types       # Type declaration files (d.ts) for typescript
 ```
 
 # Backend Patterns
@@ -185,6 +163,132 @@ It helps us:
 - encapsulate database and models interaction,
 - prevents global changes in our application
 
+# Architecture Approaches
+
+Keep in mind that there are not strict rules in building your architecture. They are just approaches and you need to manage by yourself what do you need in your application.
+
+## Functional Approach
+
+When our app folder structure created based on functionality like controllers, services etc.
+
+### File Structure Example in Functional Approach
+
+```
+.
+├── index.js    # App entry point
+├── api         # Express route controllers for all the endpoints of the map
+├── config      # Environment variables and configuration related stuff
+├── loaders     # Split the startup process into modules
+├── modules     # Database models
+├── services    # All the business logic is here
+├── subscribers # Event handlers for async task
+└── types       # Type declaration files (d.ts) for typescript
+```
+
+## Components Approach
+
+It's about storing files inside the project like models
+
+### Problems with Functional Approach
+
+- Too many folders should be opened to understand how application work
+- Big applications structure could be too complicated
+- Path is too long when you are going to include some module inside
+
+### Benefits of Components Approach
+
+- Encapsulated logic inside of components allows to hide implementation from component's client
+- All details grouped in the same place inside the component, includes accessing to the database
+- Simple and intuitive structure allows to reduce time of maintenance
+- It allows to keep layered architecture inside the components
+- It's a step behind microservice architecture
+
+### File Structure Example in Components Approach
+
+```
+.
+├── Company
+│   ├── company.spec.js
+│   ├── controller.js
+│   ├── index.js
+│   ├── service.js
+│   └── validator.js
+├── Email
+│   ├── email.spec.js
+│   ├── controller.js
+│   ├── index.js
+│   ├── service.js
+│   └── validator.js
+└── User
+    ├── user.spec.js
+    ├── controller.js
+    ├── index.js
+    ├── service.js
+    └── validator.js
+```
+
+### index.js
+
+Do not put any kind of logic inside index.js file only exporting necessary ones.
+Any exports from the model, any public method, methods of the controller
+
+# Relational Databases
+
+A relational database is a digital database of relations or two-dimensional tables
+
+- Each row of data in a table is uniquely identified by a **primary key** (**PK**)
+- You can logically relate data from multiple tables using **foreign keys** (**FK**)
+
+## View
+
+- ViewsL are considered as a virtual table. A view also contains rows and columns.
+- To create the view, we can select the fields from one or more tables present in the database.
+- A view can either have specific rows based on certain condition or all the rows of a table.
+
+## Indexing
+
+An index is a data structure that contains a copy of a column (or columns) from a database table that is ordered to increase the speed of database retrieval operations on the original column in a table.
+
+## Whgat is SQL?
+
+- SQL is an abbreviation for "**Structured Query Language**"
+- SQL is a language used to build **database applications** that need to **query** relational databases
+- SQL has statements such as **CREATE**, **SELECT**, **INSERT**, **UPDATE**, **DELETE**, etc., just like there are statements such as assignment statement, if statement, while statement, etc., in general purpose programming languages such as C, C++ and Java.
+- SQL is **a language for databases** just like C, C++ and Java are languages for general purpose programming
+
+## SQL Command Types
+
+### DML (Data Manipulation Language)
+
+- Select
+- Insert
+- Update
+- Delete
+
+### DDL (Data Definition Language)
+
+Allows you to manipulate the structure of data in your db
+
+- Create
+- Alter
+- Drop
+
+### DCL (Data Control Language)
+
+Allows you to define rules how users can control data in your db
+
+- Grant
+- Deny
+- Revoke
+
+### TCL (Transaction Control Language)
+
+Allows you execute transactions
+
+- Begin
+- Commit
+- Rollback
+
 # ORM
 
 ## What is it?
@@ -203,6 +307,12 @@ Mapping between Objects & Relational Database
 - Read
 - Update
 - Delete
+
+## Associations
+
+- one-to-one
+- one-to-many
+- many-to-many
 
 ## Advantages of ORM
 
