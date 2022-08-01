@@ -5,7 +5,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-} from '../controllers/userController';
+} from '../controllers/user-controller';
 import {
   validateAutoSuggestUser,
   validateUser,

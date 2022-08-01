@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import { autoSuggestUserSchema, userSchema } from '../schemas/userSchema';
+import { autoSuggestUserSchema, userSchema } from '../schemas/user-schema';
 import { errorResponse } from '../errors/joiError';
 
 function validate(schema: Joi.ObjectSchema) {

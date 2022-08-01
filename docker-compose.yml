@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      target: dev
+    command: nodemon --exec ../node_modules/.bin/ts-node ./src/index.ts
+    ports:
+      - '80:3000'
+    user: node
+    volumes:
+      - ./:/opt/node_app/app
+      # this will overwrite the default node_modules dir in container so it won't conflict with our
+      # /opt/node_app/node_modules location.
+      - /opt/node_app/app/node_modules
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: secret
+      DB_NAME: postgres
+      DATABASE: nodejs_global_mentoring
+    depends_on:
+      - db
+    links:
+      - db
+    healthcheck:
+      test: curl -f http://127.0.0.1:3000
+    networks:
+      - application_network
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: nodejs_global_mentoring
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - application_network
+
+networks:
+  application_network:
+    driver: bridge
+
+volumes:
+  db:
