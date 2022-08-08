@@ -1,6 +1,8 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import { autoSuggestUserSchema, userSchema } from '../schemas/user-schema';
+import { groupSchema } from '../schemas/group-schema';
+import { userGroupSchema } from '../schemas/user-group-schema';
 import { errorResponse } from '../errors/joiError';
 
 function validate(schema: Joi.ObjectSchema) {
@@ -15,4 +17,6 @@ function validate(schema: Joi.ObjectSchema) {
 }
 
 export const validateUser = validate(userSchema);
+export const validateGroup = validate(groupSchema);
+export const validateUserGroup = validate(userGroupSchema);
 export const validateAutoSuggestUser = validate(autoSuggestUserSchema);

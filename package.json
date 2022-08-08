@@ -8,10 +8,10 @@
     "start:dev": "nodemon --exec node_modules/.bin/ts-node ./src/index.ts",
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "style": "eslint src/*",
+    "style": "eslint \"src/**\"",
     "style:ts": "eslint . --ext .ts",
     "style:fix": "npm run style --fix",
-    "lint": "eslint ./src/**/*.ts",
+    "lint": "eslint \"./src/**/*.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from './routes/user-routes';
 import { handleError, handleNotFound } from './middlewares/errorHandler';
+import groupRouter from './routes/group-routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/groups', groupRouter);
 
 app.use(handleNotFound);
 app.use(handleError);
