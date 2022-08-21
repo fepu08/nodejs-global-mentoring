@@ -1,11 +1,5 @@
 import express from 'express';
-import {
-  getUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-} from '../controllers/user-controller';
+import UserController from '../controllers/user-controller';
 import {
   validateAutoSuggestUser,
   validateUser,
@@ -13,10 +7,10 @@ import {
 
 const router = express.Router();
 
-router.get('/', validateAutoSuggestUser, getUsers);
-router.get('/:id', getUserById);
-router.post('/', validateUser, createUser);
-router.put('/:id', validateUser, updateUser);
-router.delete('/:id', deleteUser);
+router.get('/', validateAutoSuggestUser, UserController.getUsers);
+router.get('/:id', UserController.getUserById);
+router.post('/', validateUser, UserController.createUser);
+router.put('/:id', validateUser, UserController.updateUser);
+router.delete('/:id', UserController.deleteUser);
 
 export default router;
