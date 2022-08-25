@@ -1,6 +1,6 @@
 import express from 'express';
 import userRoutes from './routes/user-routes';
-import { handleError, handleNotFound } from './middlewares/errorHandler';
+import { handleError, handleNotFound } from './middlewares/error-handler';
 import groupRouter from './routes/group-routes';
 import { apiMethodLoggingMiddleware } from './loggers/api-method-logger';
 import { logger } from './loggers/logger';
@@ -13,6 +13,10 @@ app.use(apiMethodLoggingMiddleware);
 
 app.get('/', (req, res) => {
   res.send('hello world');
+});
+
+app.get('/test/error', (req, res) => {
+  throw new Error();
 });
 
 app.use('/api/users', userRoutes);
