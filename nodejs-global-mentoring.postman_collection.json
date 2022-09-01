@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9a938ebe-a3d7-44d5-80cf-a1061e8d6de5",
+		"_postman_id": "33d771e8-8246-48e1-8169-cf36a7d6f05b",
 		"name": "nodejs-global-mentoring",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,12 +12,18 @@
 					"name": "Get Users",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users",
+							"raw": "http://{{host}}:{{port}}/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -32,12 +38,18 @@
 					"name": "Get Users Suggest",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users?limit=3&loginSubstring=jane",
+							"raw": "http://{{host}}:{{port}}/api/users?limit=3&loginSubstring=jane",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -62,12 +74,18 @@
 					"name": "Get Users by ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users/:id",
+							"raw": "http://{{host}}:{{port}}/api/users/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -94,6 +112,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -101,10 +124,10 @@
 							"raw": "{\r\n    \"login\": \"John Doe\",\r\n    \"password\": \"asd123\",\r\n    \"age\": 12\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users",
+							"raw": "http://{{host}}:{{port}}/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -124,6 +147,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -131,10 +159,10 @@
 							"raw": "{\r\n    \"login\": \"Jane Smith\",\r\n    \"password\": \"123asd\",\r\n    \"age\": 10\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users/:id",
+							"raw": "http://{{host}}:{{port}}/api/users/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -156,16 +184,22 @@
 					"name": "Delte User",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/users/:id",
+							"raw": "http://{{host}}:{{port}}/api/users/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -182,6 +216,85 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Has properties\", function () {\r",
+									"    pm.expect(response).to.have.property('token');\r",
+									"});\r",
+									"\r",
+									"if (pm.test(\"Has properties\")) {\r",
+									"    pm.globals.set('token', response.token);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Global token has been set\", function() {\r",
+									"    var token = pm.globals.get('token');\r",
+									"    pm.expect(token).to.eql(response.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"JaneDoe\",\r\n    \"password\": \"pasw321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/api/users/login",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Not Found",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://{{host}}:{{port}}/test-not-found",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"test-not-found"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -192,12 +305,18 @@
 					"name": "Get Groups",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups",
+							"raw": "http://{{host}}:{{port}}/api/groups",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -212,12 +331,18 @@
 					"name": "Get Groups by ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups/:id",
+							"raw": "http://{{host}}:{{port}}/api/groups/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -244,6 +369,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -251,10 +381,10 @@
 							"raw": "{\r\n    \"name\": \"test_group-1\",\r\n    \"permissions\": [\r\n        \"READ\",\r\n        \"WRITE\",\r\n        \"DELETE\",\r\n        \"SHARE\",\r\n        \"UPLOAD_FILES\"\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups",
+							"raw": "http://{{host}}:{{port}}/api/groups",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -274,6 +404,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -281,10 +416,10 @@
 							"raw": "{\r\n    \"groupId\": 1,\r\n    \"userIds\": [1, 2]\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups/add",
+							"raw": "http://{{host}}:{{port}}/api/groups/add",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -305,6 +440,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -312,10 +452,10 @@
 							"raw": "{\r\n    \"name\": \"test-group-2\",\r\n    \"permissions\": [\r\n        \"READ\",\r\n        \"WRITE\",\r\n        \"DELETE\",\r\n        \"SHARE\",\r\n        \"UPLOAD_FILES\"\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups/:id",
+							"raw": "http://{{host}}:{{port}}/api/groups/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
@@ -337,16 +477,22 @@
 					"name": "Delte Group",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{port}}/api/groups/:id",
+							"raw": "http://{{host}}:{{port}}/api/groups/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
