@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ControllerLogger } from '../loggers/controller-logger';
 import { UserService } from '../services/user-service';
+import * as jwt from 'jsonwebtoken';
 
 export default class UserController {
   @ControllerLogger()
@@ -86,6 +87,33 @@ export default class UserController {
         return res.status(404).json({ message: 'User not found' });
       }
       return res.status(200).json({ message: 'User deleted' });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  @ControllerLogger()
+  public static async login(req: Request, res: Response, next: NextFunction) {
+    const { login, password } = req.body;
+
+    try {
+      const user = await UserService.getUserByLogin(login, password);
+
+      if (!user) {
+        return res.status(400).json({ message: 'Incorrect login or password' });
+      }
+
+      jwt.sign(
+        { login },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES },
+        (err: Error, token: string) => {
+          if (err) {
+            return next(err);
+          }
+          return res.status(200).json({ token });
+        }
+      );
     } catch (err) {
       return next(err);
     }
