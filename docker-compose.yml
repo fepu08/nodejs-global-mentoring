@@ -16,6 +16,8 @@ services:
       - /opt/node_app/app/node_modules
     environment:
       NODE_ENV: development
+      JWT_SECRET: my_jsonwebtoken_secret
+      JWT_EXPIRES: 1h
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: postgres

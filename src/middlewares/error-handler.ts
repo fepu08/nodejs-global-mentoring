@@ -8,11 +8,15 @@ export const handleNotFound = (
 ) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
-  res.json({ msg: error.message });
   next(error);
 };
 
-export const handleError = (err: Error, req: Request, res: Response) => {
+export const handleError = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   logRequestError(err, req);
   res.status(statusCode);
@@ -28,8 +32,8 @@ const logRequestError = (error: Error, req: Request) => {
     params
   )}, query: ${JSON.stringify(query)}, body: ${JSON.stringify(
     body
-  )}, err: ${JSON.stringify(error.message)}`;
-  logger.warn(message);
+  )}, error: ${JSON.stringify(error.message)}`;
+  logger.error(message);
 };
 
 export default { handleError, handleNotFound };

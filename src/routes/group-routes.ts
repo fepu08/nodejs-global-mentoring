@@ -1,6 +1,6 @@
 import express from 'express';
 import GroupController from '../controllers/group-controller';
-import { validateGroup } from '../middlewares/bodyValidator';
+import { validateGroup } from '../middlewares/body-validator';
 
 const groupRouter = express.Router();
 
@@ -12,4 +12,3 @@ groupRouter.delete('/:id', GroupController.deleteGroup);
 groupRouter.post('/add', GroupController.addUsersToGroup);
 
 export default groupRouter;
-

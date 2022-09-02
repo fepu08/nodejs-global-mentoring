@@ -21,6 +21,7 @@ export class UserService {
   public static async deleteUser(id: string) {
     return await UserDAO.deleteUser(id);
   }
+
   public static async getUserByLogin(login: string, password: string) {
     return await UserDAO.getUserByLogin(login, password);
   }
