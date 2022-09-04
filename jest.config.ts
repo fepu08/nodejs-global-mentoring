@@ -1,6 +1,12 @@
-import type { Config } from '@jest/types';
-const config: Config.InitialOptions = {
+import type { Config } from 'jest';
+
+const config: Config = {
+  preset: 'ts-jest',
+  projects: ['<rootDir>'],
   verbose: true,
-  transform: { '^.+\\.tsx?$': 'ts-jest' },
+  testEnvironment: 'node',
+  testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
+  coverageDirectory: 'test-reports/',
 };
+
 export default config;
