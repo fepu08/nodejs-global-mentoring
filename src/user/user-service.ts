@@ -1,5 +1,5 @@
 import { IUser } from '../models/user-model';
-import { UserDAO } from '../data-access/user-dao';
+import { UserDAO } from './user-dao';
 
 export class UserService {
   public static async getAllUsers(loginSubstring: string, limit?: number) {

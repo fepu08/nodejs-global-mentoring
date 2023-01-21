@@ -1,4 +1,4 @@
-import { GroupDAO } from '../data-access/group-dao';
+import { GroupDAO } from './group-dao';
 import { IGroup } from '../models/group-model';
 
 export class GroupService {
@@ -25,4 +25,3 @@ export class GroupService {
     return await GroupDAO.addUsersToGroup(groupId, userIds);
   }
 }
-

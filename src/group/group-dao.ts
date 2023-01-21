@@ -28,10 +28,7 @@ export class GroupDAO {
     return [data, isNewRecord];
   }
 
-  public static async updateGroup(
-    id: number,
-    updatedGroup: IGroup,
-  ) {
+  public static async updateGroup(id: number, updatedGroup: IGroup) {
     const { name, permissions } = updatedGroup;
     const [, data] = await GroupModel.update(
       {
@@ -50,13 +47,11 @@ export class GroupDAO {
 
   public static async deleteGroup(id: string) {
     try {
-      const data = await GroupModel.destroy(
-        {
-          where: {
-            id,
-          },
-        }
-      );
+      const data = await GroupModel.destroy({
+        where: {
+          id,
+        },
+      });
       return data;
     } catch (err) {
       throw err;
@@ -65,11 +60,17 @@ export class GroupDAO {
   public static async addUsersToGroup(groupId: number, userIds: number[]) {
     const transaction = await sequelize.transaction();
     try {
-      await Promise.all(userIds.map((userId) => UserGroupModel.create({
-        userId,
-        groupId,
-      }, { transaction })
-      ));
+      await Promise.all(
+        userIds.map((userId) =>
+          UserGroupModel.create(
+            {
+              userId,
+              groupId,
+            },
+            { transaction }
+          )
+        )
+      );
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();

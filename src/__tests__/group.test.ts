@@ -1,5 +1,5 @@
-import { GroupService } from '../services/group-service';
-import GroupController from '../controllers/group-controller';
+import { GroupService } from '../group/group-service';
+import GroupController from '../group/group-controller';
 import { Response, Request, NextFunction } from 'express';
 import httpMocks from 'node-mocks-http';
 

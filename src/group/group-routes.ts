@@ -1,5 +1,5 @@
 import express from 'express';
-import GroupController from '../controllers/group-controller';
+import GroupController from './group-controller';
 import { validateGroup } from '../middlewares/body-validator';
 
 const groupRouter = express.Router();

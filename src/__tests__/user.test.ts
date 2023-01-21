@@ -1,5 +1,5 @@
-import { UserService } from '../services/user-service';
-import UserController from '../controllers/user-controller';
+import { UserService } from '../user/user-service';
+import UserController from '../user/user-controller';
 import { Response, Request, NextFunction } from 'express';
 import httpMocks from 'node-mocks-http';
 

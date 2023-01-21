@@ -44,4 +44,4 @@ CMD ["npm", "run", "test"]
 # it has prod-only dependencies
 # In BuildKit, this is skipped for dev and test stages
 FROM source as prod
-CMD ["node", "index.js"]
+CMD ["node", "./src/bin/www"]

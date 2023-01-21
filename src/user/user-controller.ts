@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { ControllerLogger } from '../loggers/controller-logger';
-import { UserService } from '../services/user-service';
+import { UserService } from './user-service';
 import * as jwt from 'jsonwebtoken';
+import { logger } from '../loggers/logger';
 
 export default class UserController {
   @ControllerLogger()

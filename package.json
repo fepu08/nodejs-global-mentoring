@@ -2,10 +2,9 @@
   "name": "nodejs-global-mentoring",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "start:dev": "nodemon --exec node_modules/.bin/ts-node ./src/index.ts",
+    "start": "tsc && node dist/bin/www",
+    "start:dev": "nodemon --exec node_modules/.bin/ts-node ./src/bin/www",
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "style": "eslint \"src/**\"",

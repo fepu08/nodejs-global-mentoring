@@ -9,15 +9,14 @@ export function jwtMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization;
 
   if (!token) {
-    res.status(401).json({ message: 'Unauthorized' });
-    return;
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   const bearerToken = token.split(' ');
 
   jwt.verify(bearerToken[1], process.env.JWT_SECRET, (err: VerifyErrors) => {
     if (err) {
-      res.status(403).json({ message: err.message });
+      return res.status(403).json({ message: err.message });
     }
     next();
   });

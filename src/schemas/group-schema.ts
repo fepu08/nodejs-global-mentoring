@@ -3,5 +3,7 @@ import Joi from 'joi';
 
 export const groupSchema: Joi.ObjectSchema = Joi.object({
   name: Joi.string().required(),
-  permissions:Joi.array().items(...ALLOWED_PERMISSIONS).required(),
+  permissions: Joi.array()
+    .items(...ALLOWED_PERMISSIONS)
+    .required(),
 });

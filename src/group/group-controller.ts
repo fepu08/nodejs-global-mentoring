@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ControllerLogger } from '../loggers/controller-logger';
-import { GroupService } from '../services/group-service';
+import { GroupService } from './group-service';
 
 export default class GroupController {
   @ControllerLogger()
