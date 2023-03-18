@@ -4,5 +4,6 @@ function reverseString(str) {
 }
 
 process.stdin.on('data', (data) => {
-  process.stdout.write(reverseString(data.toString()) + '\n');
+  const str = data.toString().replace(/(\r\n|\r|\n)/, '');
+  process.stdout.write(reverseString(str) + '\n\n');
 });
